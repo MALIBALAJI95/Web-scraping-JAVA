@@ -1,0 +1,19 @@
+{
+  "name": "curiosity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.2.0"
+  },
+  "dependencies": {
+    "mongodb": "^6.15.0",
+    "sqlite3": "^5.1.7"
+  }
+}

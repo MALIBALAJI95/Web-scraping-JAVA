@@ -1,0 +1,213 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #1E1E1E; /* Matte Black */
+    color: #A9A9A9;
+    display: flex;
+    height: 100vh; /* Ensure body takes full viewport height */
+    overflow: hidden; /* Prevent body scrollbars if container fits */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%; /* Make container fill body */
+}
+
+.history-sidebar {
+    background-color: #141414;
+    color: #C8C8C8;
+    width: 250px; /* Slightly wider for button */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+
+.history-sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#new-chat-button {
+    background-color: #9664D8; /* Purple accent */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px; /* Space below button */
+    width: 100%; /* Make button full width of sidebar padding */
+    box-sizing: border-box;
+}
+
+.history-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Allow history list to scroll if needed */
+    flex-grow: 1; /* Allow list to take remaining space */
+}
+
+.history-sidebar li {
+    padding: 8px 5px; /* Adjust padding */
+    cursor: pointer;
+    border-bottom: 1px solid #282828; /* Separator line */
+    display: flex; /* Use flexbox to align text and button */
+    justify-content: space-between; /* Push text and button apart */
+    align-items: center; /* Vertically align items */
+    word-break: break-word; /* Prevent long chat names from overflowing */
+}
+
+.history-sidebar li:last-child {
+    border-bottom: none; /* Remove border from last item */
+}
+
+.history-sidebar li:hover {
+    background-color: #282828; /* Highlight on hover */
+}
+
+/* Style for the chat title span (to control its width) */
+.chat-title {
+    flex-grow: 1; /* Allow title to take available space */
+    margin-right: 5px; /* Space between title and delete button */
+    /* Optional: Add text-overflow if needed for very long titles */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+}
+
+
+/* Style for the delete button */
+.delete-chat-button {
+    background-color: #555; /* Dark grey background */
+    color: #ccc; /* Light grey text */
+    border: none;
+    border-radius: 4px; /* Slightly rounded */
+    padding: 2px 6px; /* Small padding */
+    font-size: 0.8em; /* Smaller font */
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1; /* Ensure text fits vertically */
+    margin-left: 5px; /* Space between text and button */
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+.delete-chat-button:hover {
+    background-color: #dc3545; /* Red background on hover */
+    color: white;
+}
+/* End of Delete Button Style */
+
+
+.chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #1E1E1E; /* Ensure chat area background */
+    height: 100%; /* Make chat area fill container height */
+    overflow: hidden; /* Prevent chat area scrollbars, handle scrolling inside */
+}
+
+#chat-messages { /* Renamed from .chat-messages to match ID */
+    flex-grow: 1;
+    overflow-y: auto; /* Autoscroll will happen here */
+    padding-bottom: 10px; /* Space at the bottom */
+    display: flex; /* Enable flexbox for message alignment */
+    flex-direction: column; /* Messages stack vertically */
+}
+
+
+.message-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message {
+    background-color: #282828;
+    color: #A9A9A9;
+    padding: 10px 15px; /* Slightly more padding */
+    border-radius: 15px; /* More rounded corners */
+    width: fit-content;
+    max-width: 70%;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.4; /* Improve readability */
+}
+
+.bot-message-container {
+    justify-content: flex-start;
+}
+
+.bot-message {
+    background-color: #4A306D; /* Purple accent */
+    border-bottom-left-radius: 5px; /* Slightly different rounding for bot */
+}
+
+.user-message-container {
+    justify-content: flex-end;
+}
+
+.user-message {
+    background-color: #333; /* Slightly lighter grey for user */
+    border-bottom-right-radius: 5px; /* Slightly different rounding for user */
+}
+
+.message-with-time {
+    /* Removed display:flex and flex-direction:column - let content flow normally */
+}
+
+.message-time {
+    font-size: 0.75em; /* Smaller time */
+    color: #888; /* Dimmer time color */
+    /* align-self: flex-end; NO LONGER NEEDED */
+    margin-top: 3px; /* Less space above time */
+    margin-left: 8px; /* Space between message text and time */
+    display: inline-block; /* Keep time on the same line if space allows */
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px; /* Add some space above input */
+    border-top: 1px solid #333; /* Separator line */
+    flex-shrink: 0; /* Prevent input area from shrinking */
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 12px; /* Larger padding */
+    border: 1px solid #9664D8;
+    border-radius: 20px; /* Pill shape */
+    background-color: #282828;
+    color: #A9A9A9;
+    font-size: 1em;
+}
+
+#send-button {
+    background-color: #9664D8;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Wider button */
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#send-button:hover {
+    background-color: #7a4db3; /* Darker purple on hover */
+}
+
+/* ++ Style for the Thinking Indicator ++ */
+.thinking-indicator .message {
+    font-style: italic;
+    color: #b0b0b0; /* Slightly lighter grey */
+    background-color: #3a2657; /* Slightly different purple */
+    padding: 8px 12px; /* Slightly smaller padding */
+}
+/* ++ End of Thinking Indicator Style ++ */

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Curiosity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="history-sidebar">
+            
+                <h2>Chat History</h2>
+                <button id="new-chat-button">New Chat</button>
+                <ul id="history-list">
+                    <!-- Chat history items will be added here by renderer.js -->
+                    <!-- Example structure added by JS:
+                    <li>
+                        <span>Chat Title (e.g., Chat 2025-03-30...)</span>
+                        <button class="delete-chat-button">X</button> 
+                    </li>
+                    -->
+                </ul>
+            
+        </aside>
+        <main class="chat-area">
+            <div id="chat-messages">
+                <!-- Chat messages appear here -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="message-input" placeholder="Type your message here…">
+                <button id="send-button">Send</button>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
