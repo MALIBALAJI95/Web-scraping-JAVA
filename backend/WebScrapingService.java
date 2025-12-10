@@ -23,6 +23,22 @@ public class WebScrapingService {
     private static final int TIMEOUT_MS = 10000;
     private static final int MAX_RESULTS = 10;
 
+    // --- New elements for enhancement ---
+    private static final String[] EXTRA_SELECTORS = {
+            ".result__extras",
+            ".result__url",
+            ".result__snippet",
+            ".result__body",
+            ".result__title a",
+            ".result__a"
+    };
+
+    private static final String[] USER_AGENTS = {
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64)",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    };
+    // --- End new elements ---
 
     public List<String> searchAndScrape(String query) {
         List<String> results = new ArrayList<>();
@@ -34,9 +50,9 @@ public class WebScrapingService {
 
             // Fetch the HTML document using Jsoup
             Document doc = Jsoup.connect(searchUrl)
-                    .userAgent(USER_AGENT) // Set user agent to avoid basic blocks
-                    .timeout(TIMEOUT_MS)   // Set connection timeout
-                    .get();                // Execute the GET request
+                    .userAgent(getRandomUserAgent()) // Updated to use random user-agent
+                    .timeout(TIMEOUT_MS)
+                    .get();
 
             Elements resultElements = doc.select("div.result, div.web-result"); 
 
@@ -48,25 +64,14 @@ public class WebScrapingService {
                     break;
                 }
 
-                Element snippetElement = result.selectFirst(".result__snippet, .result__body"); 
-                if (snippetElement != null) {
-                    String snippetText = snippetElement.text().trim(); 
-                    if (!snippetText.isEmpty()) {
-                        results.add("- " + snippetText); 
-                        log.debug("Extracted snippet: {}", snippetText);
-                        count++;
-                    }
+                // Use helper to extract first available element text
+                String extracted = extractFirstAvailable(result, EXTRA_SELECTORS);
+                if (extracted != null) {
+                    results.add("- " + extracted);
+                    log.debug("Extracted: {}", extracted);
+                    count++;
                 } else {
-
-                     Element titleElement = result.selectFirst(".result__title a, .result__a");
-                     if (titleElement != null) {
-                         String titleText = titleElement.text().trim();
-                         if(!titleText.isEmpty()) {
-                             results.add("- " + titleText + " (Title only)");
-                             log.debug("Extracted title as fallback: {}", titleText);
-                             count++;
-                         }
-                     }
+                    log.debug("No valid text found in this result element");
                 }
             }
 
@@ -83,5 +88,21 @@ public class WebScrapingService {
         }
 
         return results;
+    }
+
+    // --- Helper method to extract first available selector ---
+    private String extractFirstAvailable(Element result, String... selectors) {
+        for (String selector : selectors) {
+            Element el = result.selectFirst(selector);
+            if (el != null && !el.text().trim().isEmpty()) {
+                return el.text().trim();
+            }
+        }
+        return null;
+    }
+
+    // --- Helper method to get random user-agent ---
+    private String getRandomUserAgent() {
+        return USER_AGENTS[(int) (Math.random() * USER_AGENTS.length)];
     }
 }
