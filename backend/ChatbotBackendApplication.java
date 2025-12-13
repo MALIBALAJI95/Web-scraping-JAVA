@@ -9,36 +9,55 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication
 public class ChatbotBackendApplication {
 
+    // --- Design constants ---
+    private static final String APP_NAME = "Chatbot Backend";
+    private static final String APP_VERSION = "v1.0.0";
+
     public static void main(String[] args) {
         SpringApplication.run(ChatbotBackendApplication.class, args);
-        System.out.println("[Chatbot] Application started successfully.");
+
+        printBanner();
+        log(APP_NAME + " started successfully");
         printEnvironmentInfo();
         registerShutdownHook();
     }
 
-    // --- NEW: Display basic environment info ---
+    // --- Simple banner (design only) ---
+    private static void printBanner() {
+        System.out.println("======================================");
+        System.out.println("   " + APP_NAME + "  " + APP_VERSION);
+        System.out.println("======================================");
+    }
+
+    // --- Centralized logging (no framework added) ---
+    private static void log(String message) {
+        System.out.println("[Chatbot] " + message);
+    }
+
+    // --- Display basic environment info ---
     private static void printEnvironmentInfo() {
         String javaVersion = System.getProperty("java.version");
         String os = System.getProperty("os.name");
-        System.out.println("[Chatbot] Java Version: " + javaVersion);
-        System.out.println("[Chatbot] Operating System: " + os);
+
+        log("Java Version: " + javaVersion);
+        log("Operating System: " + os);
     }
 
-    // --- NEW: Basic shutdown notifier ---
+    // --- Basic shutdown notifier ---
     private static void registerShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("[Chatbot] Application is shutting down...");
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(() ->
+                log("Application is shutting down...")
+        ));
     }
 
-    // Optional lifecycle annotations (Spring managed)
+    // --- Spring lifecycle hooks ---
     @PostConstruct
     public void onStartup() {
-        System.out.println("[Chatbot] Initialization phase complete.");
+        log("Initialization phase complete");
     }
 
     @PreDestroy
     public void onShutdown() {
-        System.out.println("[Chatbot] PreDestroy: Cleaning up before shutdown.");
+        log("PreDestroy: Cleaning up before shutdown");
     }
 }
