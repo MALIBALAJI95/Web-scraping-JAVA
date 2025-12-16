@@ -1,39 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Curiosity</title>
+
+    <!-- Basic responsive support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- App styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- ===============================
+         Application Container
+    ================================ -->
     <div class="container">
-        <aside class="history-sidebar">
-            
+
+        <!-- ===============================
+             Sidebar : Chat History
+        ================================ -->
+        <aside class="history-sidebar" aria-label="Chat History Sidebar">
+
+            <header class="sidebar-header">
                 <h2>Chat History</h2>
-                <button id="new-chat-button">New Chat</button>
+                <button id="new-chat-button" aria-label="Start new chat">
+                    New Chat
+                </button>
+            </header>
+
+            <nav class="history-list-wrapper">
                 <ul id="history-list">
-                    <!-- Chat history items will be added here by renderer.js -->
-                    <!-- Example structure added by JS:
+                    <!-- Chat history items injected by renderer.js -->
+                    <!-- Example:
                     <li>
-                        <span>Chat Title (e.g., Chat 2025-03-30...)</span>
-                        <button class="delete-chat-button">X</button> 
+                        <span>Chat 2025-03-30</span>
+                        <button class="delete-chat-button">X</button>
                     </li>
                     -->
                 </ul>
-            
+            </nav>
+
         </aside>
-        <main class="chat-area">
-            <div id="chat-messages">
-                <!-- Chat messages appear here -->
-            </div>
-            <div class="input-area">
-                <input type="text" id="message-input" placeholder="Type your message here…">
-                <button id="send-button">Send</button>
-            </div>
-            
+
+        <!-- ===============================
+             Main Chat Area
+        ================================ -->
+        <main class="chat-area" aria-label="Chat Area">
+
+            <!-- Chat messages -->
+            <section id="chat-messages" aria-live="polite">
+                <!-- Messages rendered dynamically -->
+            </section>
+
+            <!-- Message input -->
+            <footer class="input-area">
+                <label for="message-input" class="visually-hidden">
+                    Message input
+                </label>
+
+                <input
+                    type="text"
+                    id="message-input"
+                    placeholder="Type your message here…"
+                    autocomplete="off"
+                />
+
+                <button id="send-button" aria-label="Send message">
+                    Send
+                </button>
+            </footer>
+
         </main>
+
     </div>
 
+    <!-- Renderer script -->
     <script src="renderer.js"></script>
+
 </body>
 </html>
